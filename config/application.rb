@@ -12,9 +12,6 @@ require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
-# config.generators do |g|
-#   g.test_framework false
-# end
 
 
 # Require the gems listed in Gemfile, including any gems
@@ -23,6 +20,11 @@ Bundler.require(*Rails.groups)
 
 module Flix
   class Application < Rails::Application
+
+		# double check this later
+		config.generators do |g|
+			g.test_framework false
+		end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
