@@ -57,4 +57,16 @@ describe "Signing in" do
     expect(page).not_to have_link('Sign Out')
   end
 
+  it "redirects to the intended page" do
+    user = User.create!(user_attributes)
+  
+    visit users_url
+  
+    expect(current_path).to eq(new_session_path)
+  
+    sign_in(user)
+  
+    expect(current_path).to eq(users_path)
+  end
+
 end
