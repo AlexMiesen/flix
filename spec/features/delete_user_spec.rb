@@ -1,11 +1,15 @@
 require 'rails_helper'
 
 describe "Deleting a user" do
-  it "destroys the user and redirects to the home page" do
-    user = User.create!(user_attributes)
 
-    sign_in(user)
-    
+  before do
+    admin = User.create!(user_attributes(admin: true))
+    sign_in(admin)
+  end
+
+  it "destroys the user and redirects to the home page" do
+    user = User.create!(user_attributes(email: 'frida@example.com', username: 'Frida', name: 'frida'))
+
     visit user_path(user)
 
     click_link 'Delete Account'
@@ -19,15 +23,15 @@ describe "Deleting a user" do
   end
 
   it "automatically signs out that user" do
-    user = User.create!(user_attributes)
-  
-    sign_in(user)
+    user = User.create!(user_attributes(email: 'frida@example.com', username: 'Frida', name: 'frida'))
   
     visit user_path(user)
   
     click_link 'Delete Account'
+
+    expect(page).not_to have_text(user.name)
   
-    expect(page).to have_link('Sign In')
-    expect(page).not_to have_link('Sign Out')
+    # expect(page).to have_link('Sign In')
+    # expect(page).to have_link('Sign Out')
   end
 end
