@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 describe "Creating a new review" do
+
+  before do
+    @user = User.create!(user_attributes)
+    sign_in(@user)
+  end
+  
   it "saves the review" do
     movie = Movie.create(movie_attributes)
 
