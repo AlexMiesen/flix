@@ -16,7 +16,6 @@ describe "Creating a new review" do
 
     expect(current_path).to eq(new_movie_review_path(movie))
 
-    fill_in "Name", with: "Roger Ebert"
     choose "review_stars_3"
     fill_in "Comment", with: "I laughed, I cried, I spilled my popcorn!"
 
@@ -38,4 +37,6 @@ describe "Creating a new review" do
 
     expect(page).to have_text('error')
   end
+
+  expect(page).to have_text(@user.name)
 end
