@@ -5,8 +5,9 @@
 <ol id="reviews">
   <% @movie.reviews.each do |review| %>
     <li>
+      <%= profile_image_for(review.user, size: 35) %>
       <p>
-        <%= pluralize(review.stars, 'star') %> by <%= review.name %>:
+        <%= pluralize(review.stars, 'star') %> by <%= link_to(review.user.name, review.user) %>:
       </p>
       <p>
         &quot;<%= review.comment %>&quot;
