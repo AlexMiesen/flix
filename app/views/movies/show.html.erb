@@ -18,7 +18,7 @@
       <%= pluralize(@fans.size, 'fan') %>
       <% @fans.each do |fan| %>
       <ul>
-        <li> <%= link_to(fan.name, fan) %></li>
+        <li> <%= link_to(fan.name, fan) %><% profile_image_for(fan, size: 35) %></li>
       </ul>
       <% end %>
     </p>
