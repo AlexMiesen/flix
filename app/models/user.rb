@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_secure_password
 
 	has_many :reviews, dependent: :destroy
+	has_many :favourites, dependent: :destroy
+	has_many :favourite_movies, through: :favourites, source: :movie 
 
 	validates :name, presence: true
 

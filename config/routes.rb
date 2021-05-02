@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :favourites
 	get 'signin' => 'sessions#new'
 	
 	resource :session
