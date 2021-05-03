@@ -116,11 +116,11 @@ describe "A user" do
     movie1 = Movie.new(movie_attributes(title: "Iron Man"))
     movie2 = Movie.new(movie_attributes(title: "Superman"))
   
-    user.favorites.new(movie: movie1)
-    user.favorites.new(movie: movie2)
+    user.favourites.new(movie: movie1)
+    user.favourites.new(movie: movie2)
   
-    expect(user.favorite_movies).to include(movie1)
-    expect(user.favorite_movies).to include(movie2)
+    expect(user.favourite_movies).to include(movie1)
+    expect(user.favourite_movies).to include(movie2)
   end
 
   describe "authenticate" do

@@ -38,5 +38,4 @@ describe "Creating a new review" do
     expect(page).to have_text('error')
   end
 
-  expect(page).to have_text(@user.name)
 end
