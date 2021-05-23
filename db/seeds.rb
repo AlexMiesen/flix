@@ -127,7 +127,8 @@ Genre.create!([
   },
   {
     name: "Animation"
-  },{
+  },
+  {
     name: "Sci-Fi"
   }
 ])
