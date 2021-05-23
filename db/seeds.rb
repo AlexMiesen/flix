@@ -103,3 +103,31 @@ Movie.create!([
     total_gross: 387_623_910
   }
 ])
+Genre.create!([
+  {
+    name: "Action"
+  },
+  {
+    name: "Comedy"
+  },
+  {
+    name: "Drama"
+  },
+  {
+    name: "Romance"
+  },
+  {
+    name: "Thriller"
+  },
+  {
+    name: "Documentary"
+  },
+  {
+    name: "Adventure"
+  },
+  {
+    name: "Animation"
+  },{
+    name: "Sci-Fi"
+  }
+])

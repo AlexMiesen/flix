@@ -13,16 +13,14 @@
     <%= @movie.rating %> &bull; <%= @movie.duration %> 
   </h3>
 
-  <% if @fans.any? %>  
-    <p>
-      <%= pluralize(@fans.size, 'fan') %>
-      <% @fans.each do |fan| %>
-      <ul>
-        <li> <%= link_to(fan.name, fan) %><% profile_image_for(fan, size: 35) %></li>
-      </ul>
-      <% end %>
-    </p>
-  <% end %>
+  <p>
+    <%= pluralize(@fans.size, 'fan') %>
+    <% @fans.each do |fan| %>
+    <ul>
+      <li> <%= link_to(fan.name, fan) %><% profile_image_for(fan, size: 35) %></li>
+    </ul>
+    <% end %>
+  </p>
 
   <% if current_user %>
     <% if @current_favourite %>
