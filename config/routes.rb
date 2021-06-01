@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   resources :movies do
 		resources :reviews
 		resources :favourites
-	end 
+	end
 end

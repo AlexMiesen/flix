@@ -1,0 +1,12 @@
+<ul id="genres">
+  <% @genres.each do |genre| %>
+    <li>
+      <article class="genre">
+			<%= link_to genre.name, edit_genre_path(genre) %>
+        <footer>
+        </footer>
+      </article>
+    </li>
+  <% end %>
+</ul>
+
