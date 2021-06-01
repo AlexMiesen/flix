@@ -8,6 +8,9 @@
       </li>
       <%= f.submit %>
       <%= link_to "Cancel", genres_path, class: 'button' %>
+      <% if @genre.persisted? %>
+        <%= link_to 'Delete', @genre, class: 'button', method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
     </p>
   </fieldset>
 <% end %>

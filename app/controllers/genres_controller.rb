@@ -7,11 +7,16 @@ class GenresController < ApplicationController
 	end
 
 	def new
-
+		@genre = Genre.new
 	end
 
 	def create
-
+		@genre = Genre.new(genre_params)
+    if @genre.save
+			redirect_to genres_path, notice: "Movie successfully created!"
+		else
+			render :new 
+		end
 	end
 
 	def edit
@@ -20,12 +25,17 @@ class GenresController < ApplicationController
 
 	def update
 		@genre = Genre.find(params[:id])
-		@genre.update(genre_params)
-		redirect_to genres_path, notice: "Genre successfully updated!"
+		if @genre.update(genre_params)
+			redirect_to genres_path, notice: "Genre successfully updated!"
+		else 
+			render :edit
+		end
 	end 
 		
 	def destroy
-
+		@genre = Genre.find(params[:id])
+    @genre.destroy
+    redirect_to genres_url, alert: "Genre successfully deleted!"
 	end
 
 	private
