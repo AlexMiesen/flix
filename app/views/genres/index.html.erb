@@ -7,6 +7,9 @@
         </footer>
       </article>
     </li>
+    <% if genre.movies.any? %>
+      <%= genre.movies.map { |m| m.title } %>
+    <% end %>
   <% end %>
 </ul>
 
