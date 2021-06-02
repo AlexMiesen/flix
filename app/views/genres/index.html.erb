@@ -8,7 +8,7 @@
       </article>
     </li>
     <% if genre.movies.any? %>
-      <%= genre.movies.map { |m| m.title } %>
+      <%= genre.movies.map(&:title).join(', ') %>
     <% end %>
   <% end %>
 </ul>
