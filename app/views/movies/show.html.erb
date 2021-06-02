@@ -12,7 +12,8 @@
   <h3 class="no-rule">
     <%= @movie.rating %> &bull; <%= @movie.duration %> 
   </h3>
-
+  
+  <% content_for :side do %>
   <p>
     <%= pluralize(@fans.size, 'fan') %>
     <% @fans.each do |fan| %>
@@ -21,6 +22,13 @@
     </ul>
     <% end %>
   </p>
+  <h3>Genres</h3>
+  <ul>
+    <% @genres.each do |genre| %>
+      <li><%= genre.name %></li>
+    <% end %>
+  </ul>
+  <% end %>
 
   <% if current_user %>
     <% if @current_favourite %>
@@ -39,13 +47,6 @@
   <p>
     <%= @movie.director %>
   </p>
-
-  <h3>Genres</h3>
-  <ul>
-    <% @genres.each do |genre| %>
-      <li><%= genre.name %></li>
-    <% end %>
-  </ul>
 
   <h3>Total Gross</h3>
   <p>

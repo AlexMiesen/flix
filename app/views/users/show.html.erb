@@ -9,14 +9,18 @@
 			<p>
 				<%= @user.created_at.strftime("%B %Y") %>
 			</p>
-    <% if @favourite_movies.any? %>
-    <h3>Favourite Movies</h3>
-      <ul>
-        <% @favourite_movies.each do |movie| %>
-          <li> <%= link_to(movie.title, movie)%></li>
-        <% end %>
-      </ul>
+      
+    <% content_for :side do %>
+      <% if @favourite_movies.any? %>
+      <h3>Favourite Movies</h3>
+        <ul>
+          <% @favourite_movies.each do |movie| %>
+            <li> <%= link_to(movie.title, movie)%></li>
+          <% end %>
+        </ul>
+      <% end %>
     <% end %>
+
     <% if @reviews.any? %>
       <h3>Reviews</h3>
       <ol id="reviews">
