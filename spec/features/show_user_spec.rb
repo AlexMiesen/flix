@@ -13,11 +13,11 @@ describe "Viewing a user's profile page" do
     expect(page).to have_text(user.email)
   end
 
-  it "shows the user's favorites in the sidebar" do
+  it "shows the user's favourites in the sidebar" do
     user = User.create!(user_attributes)
   
     movie = Movie.create!(movie_attributes)
-    user.favorite_movies << movie
+    user.favourite_movies << movie
   
     sign_in(user)
   
