@@ -5,6 +5,10 @@ class User < ApplicationRecord
 	has_many :favourites, dependent: :destroy
 	has_many :favourite_movies, through: :favourites, source: :movie 
 
+	scope :by_name, -> { order(:name) }
+	scope :not_admins, -> { by_name.where(admin: false) }
+	
+
 	validates :name, presence: true
 
 	validates :email, presence: true, format: /\A\S+@\S+\z/, uniqueness: { case_sensitive: false }

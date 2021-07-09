@@ -1,7 +1,9 @@
 class Movie < ApplicationRecord
 	RATINGS = %w(G PG PG-13 R NC-17)
 	
-	has_many :reviews, dependent: :destroy
+	has_many :reviews, -> { order(created_at: :desc) }, dependent: :destroy #the most-recent review appeared first in the listing by having the lambda 
+
+	
 	has_many :critics, through: :reviews, source: :user
 	has_many :favourites, dependent: :destroy
 	has_many :fans, through: :favourites, source: :user
@@ -27,7 +29,10 @@ class Movie < ApplicationRecord
 	scope :hits, -> { released.where('total_gross >= 300000000').order(total_gross: :desc) }
 	scope :flops, -> { released.where('total_gross < 50000000').order(total_gross: :asc) }
 	scope :upcoming, -> { where("released_on > ?", Time.now).order(released_on: :asc) }
-	scope :rating, -> (rating) { released.where(rating: rating) }
+	scope :rated, -> (rating) { released.where(rating: rating) }
+	scope :recent, -> (max=5){ released.limit(max)}
+	scope :grossed_less_than, -> (amount) { released.where('total_gross < ?', amount) }
+	scope :grossed_greater_than, -> (amount) {released.where('total_gross > ?', amount) }
 
   def self.recently_added
     order('created_at desc').limit(3)
