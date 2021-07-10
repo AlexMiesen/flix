@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   resources :users
 	
   root "movies#index"
-	
+
+	get "movies/filter/:scope" => "movies#index", as: :filtered_movies
+
+	# get "movies/filter/hits" => "movies#index", scope: 'hits'
+	# get "movies/filter/flops" => "movies#index", scope: 'flops'
+		
   resources :movies do
 		resources :reviews
 		resources :favourites
