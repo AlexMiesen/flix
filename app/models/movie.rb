@@ -49,5 +49,9 @@ class Movie < ApplicationRecord
 	def recent_reviews
 		# reviews.where("created_at < ?", Time.now).order(created_at: :desc).limit(2)
 		reviews.order('created_at desc').limit(2)
-	end	
+	end
+
+	def to_param
+		"#{id}-#{title.parameterize}"
+	end 
 end
