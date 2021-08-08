@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+	before_save :format_username
 
 	has_many :reviews, dependent: :destroy
 	has_many :favourites, dependent: :destroy
@@ -25,5 +26,13 @@ class User < ApplicationRecord
 		user = User.find_by(email: email)
 		user && user.authenticate(password)
 	end 
+
+	def format_username
+		self.username = username.downcase
+	end
+
+	def format_email
+		self.email = email.downcase
+	end
 
 end
