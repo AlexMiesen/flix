@@ -1,16 +1,18 @@
 class Movie < ApplicationRecord
+	before_validation :generate_slug
+
 	RATINGS = %w(G PG PG-13 R NC-17)
 	
 	has_many :reviews, -> { order(created_at: :desc) }, dependent: :destroy #the most-recent review appeared first in the listing by having the lambda 
-
-	
 	has_many :critics, through: :reviews, source: :user
 	has_many :favourites, dependent: :destroy
 	has_many :fans, through: :favourites, source: :user
 	has_many :characterizations, dependent: :destroy
 	has_many :genres, through: :characterizations
 
-	validates :title, :released_on, :duration, presence: true, uniqueness: true
+	validates :title, presence: true, uniqueness: true
+
+	validates :released_on, :duration, presence: true
 
 	validates :slug, uniqueness: true
 
@@ -49,6 +51,10 @@ class Movie < ApplicationRecord
 	def recent_reviews
 		# reviews.where("created_at < ?", Time.now).order(created_at: :desc).limit(2)
 		reviews.order('created_at desc').limit(2)
+	end
+
+	def generate_slug
+		self.slug ||= title.parameterize if title
 	end
 
 	def to_param
