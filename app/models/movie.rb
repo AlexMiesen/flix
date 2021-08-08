@@ -10,9 +10,9 @@ class Movie < ApplicationRecord
 	has_many :characterizations, dependent: :destroy
 	has_many :genres, through: :characterizations
 
+	validates :title, :released_on, :duration, presence: true, uniqueness: true
 
-
-	validates :title, :released_on, :duration, presence: true
+	validates :slug, uniqueness: true
 
 	validates :description, length: { minimum: 25 }
 
@@ -52,6 +52,6 @@ class Movie < ApplicationRecord
 	end
 
 	def to_param
-		"#{id}-#{title.parameterize}"
+		slug
 	end 
 end
