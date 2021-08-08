@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+	before_validation :generate_slug
 	before_save :format_username
 
 	has_many :reviews, dependent: :destroy
@@ -11,6 +12,8 @@ class User < ApplicationRecord
 	
 
 	validates :name, presence: true
+
+	validates :slug, uniqueness: true
 
 	validates :email, presence: true, format: /\A\S+@\S+\z/, uniqueness: { case_sensitive: false }
 
@@ -34,5 +37,13 @@ class User < ApplicationRecord
 	def format_email
 		self.email = email.downcase
 	end
+
+	def generate_slug
+		self.slug ||= name.parameterize if name
+	end
+
+	def to_param
+		slug
+	end 
 
 end
