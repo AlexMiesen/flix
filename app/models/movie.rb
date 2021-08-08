@@ -1,5 +1,6 @@
 class Movie < ApplicationRecord
 	before_validation :generate_slug
+	to_param :title
 
 	RATINGS = %w(G PG PG-13 R NC-17)
 	
