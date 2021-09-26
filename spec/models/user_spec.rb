@@ -96,13 +96,13 @@ describe "A user" do
 
   it "has reviews" do
     user = User.new(user_attributes)
-    movie1 = Movie.new(movie_attributes(title: "Iron Man"))
-    movie2 = Movie.new(movie_attributes(title: "Superman"))
-  
+    movie1 = Movie.create!(movie_attributes(title: "Iron Man"))
+    movie2 = Movie.create!(movie_attributes(title: "Superman"))
+
     review1 = movie1.reviews.new(stars: 5, comment: "Two thumbs up!")
     review1.user = user
     review1.save!
-  
+
     review2 = movie2.reviews.new(stars: 3, comment: "Cool!")
     review2.user = user
     review2.save!
