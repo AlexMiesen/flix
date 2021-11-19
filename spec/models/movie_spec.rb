@@ -154,9 +154,11 @@ describe "A movie" do
 	
 	it "deletes associated reviews" do
 		movie = Movie.create(movie_attributes)
-	
-		movie.reviews.create(review_attributes)
-		
+
+		user = User.new(user_attributes)
+
+		movie.reviews.create(review_attributes(user: user))
+
 		expect {
 			movie.destroy
 		}.to change(Review, :count).by(-1)
@@ -164,11 +166,13 @@ describe "A movie" do
 
 	it "calculates the average number of review stars" do
 		movie = Movie.create(movie_attributes)
+
+		user = User.new(user_attributes)
 	
-		movie.reviews.create(review_attributes(stars: 1))
-		movie.reviews.create(review_attributes(stars: 3))
-		movie.reviews.create(review_attributes(stars: 5))
-		
+		movie.reviews.create(review_attributes(stars: 1, user: user))
+		movie.reviews.create(review_attributes(stars: 3, user: user))
+		movie.reviews.create(review_attributes(stars: 5, user: user))
+
 		expect(movie.average_stars).to eq(3)
 	end
 
@@ -186,7 +190,7 @@ describe "A movie" do
 
 	context "upcoming query" do
 		it "returns the movies with a released on date in the future" do
-			movie1 = Movie.create!(movie_attributes(released_on: 3.months.ago))
+			movie1 = Movie.create!(movie_attributes(released_on: 3.months.ago, title: '3 months old'))
 			movie2 = Movie.create!(movie_attributes(released_on: 3.months.from_now))
 	
 			expect(Movie.upcoming).to eq([movie2])
@@ -195,8 +199,8 @@ describe "A movie" do
 	
 	context "rated query" do
 		it "returns released movies with the specified rating" do
-			movie1 = Movie.create!(movie_attributes(released_on: 3.months.ago, rating: "PG"))
-			movie2 = Movie.create!(movie_attributes(released_on: 3.months.ago, rating: "PG-13"))
+			movie1 = Movie.create!(movie_attributes(released_on: 3.months.ago, rating: "PG", title: 'PG movie'))
+			movie2 = Movie.create!(movie_attributes(released_on: 3.months.ago, rating: "PG-13", title: 'PG-13 movie'))
 			movie3 = Movie.create!(movie_attributes(released_on: 1.month.from_now, rating: "PG"))
 	
 			expect(Movie.rated("PG")).to eq([movie1])
@@ -206,12 +210,12 @@ describe "A movie" do
 	context "recent query" do
 		before do
 			@movie1 = Movie.create!(movie_attributes(released_on: 3.months.ago))
-			@movie2 = Movie.create!(movie_attributes(released_on: 2.months.ago))
-			@movie3 = Movie.create!(movie_attributes(released_on: 1.month.ago))
-			@movie4 = Movie.create!(movie_attributes(released_on: 1.week.ago))
-			@movie5 = Movie.create!(movie_attributes(released_on: 1.day.ago))
-			@movie6 = Movie.create!(movie_attributes(released_on: 1.hour.ago))
-			@movie7 = Movie.create!(movie_attributes(released_on: 1.day.from_now))
+			@movie2 = Movie.create!(movie_attributes(released_on: 2.months.ago, title: '2 months ago'))
+			@movie3 = Movie.create!(movie_attributes(released_on: 1.month.ago, title: '1 month ago'))
+			@movie4 = Movie.create!(movie_attributes(released_on: 1.week.ago, title: '1 week ago'))
+			@movie5 = Movie.create!(movie_attributes(released_on: 1.day.ago, title: '1 day ago'))
+			@movie6 = Movie.create!(movie_attributes(released_on: 1.hour.ago, title: '1 hour ago'))
+			@movie7 = Movie.create!(movie_attributes(released_on: 1.day.from_now, title: '1 day from now' ))
 		end
 	
 		it "returns a specified number of released movies ordered with the most recent movie first" do

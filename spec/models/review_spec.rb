@@ -13,10 +13,13 @@ describe "A review" do
   it "with example attributes is valid" do
     movie = Movie.create(movie_attributes)
 
+    user = User.new(user_attributes)
+
     review = Review.new(review_attributes)
 
     review.movie = movie
-
+    review.user = user
+  
     expect(review.valid?).to eq(true)
   end
 
