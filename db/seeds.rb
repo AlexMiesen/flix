@@ -20,6 +20,13 @@ User.create!([
     password: 'harrypotter',
     admin: false
   }
+  {
+    name: 'Nikhil',
+    email: 'Nikhil@example.com',
+    username: 'Nikhililil',
+    password: 'harrypotter',
+    admin: false
+  }
 ])
 Movie.create!([
   {
